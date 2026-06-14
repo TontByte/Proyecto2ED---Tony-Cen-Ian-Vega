@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Proyecto2ED - Tony Cen &amp; Ian Vega.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Nodo.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

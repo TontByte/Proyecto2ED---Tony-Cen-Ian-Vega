@@ -3,6 +3,15 @@
 
 #include <iostream>
 
+/*
+Valores que deben ser configurables
+1. cantidad de nodos que se generan
+2. Distancia de conexion
+3. Maximo de conexiones por nodo
+4. Dimensiones de la ventana de la interfaz
+
+*/
+
 int main()
 {
     std::cout << "Hello World!\n";
