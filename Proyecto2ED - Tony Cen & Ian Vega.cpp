@@ -2,19 +2,28 @@
 //
 
 #include <iostream>
+#include "Nodo.h"
+#include "Arco.h"
+#include "Config.h"
 
-/*
-Valores que deben ser configurables
-1. cantidad de nodos que se generan
-2. Distancia de conexion
-3. Maximo de conexiones por nodo
-4. Dimensiones de la ventana de la interfaz
+void generarNodos() {
+}
 
-*/
+void dibujarNodos() {
+    //dibuja todos los nodos en la lista de nodos creados
+}
 
-int main()
-{
-    std::cout << "Hello World!\n";
+void dibujarArcos() {
+    //dibuja todos los arcos de la lista donde estan los arcos
+}
+
+void resetVisited() {
+}
+
+
+int main(){
+    ArrayList<Nodo*> listaNodos(CANT_NODOS);
+    ArrayList<Arco> listaArcos;
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
