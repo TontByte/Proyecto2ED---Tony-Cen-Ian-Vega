@@ -9,22 +9,57 @@
 void generarNodos() {
 }
 
-void dibujarNodos() {
-    //dibuja todos los nodos en la lista de nodos creados
+void dibujarNodos(ArrayList<Nodo*>& listaNodos, sf::RenderWindow& window) {
+    for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
+        listaNodos.getElement()->draw(window);
+    }
 }
 
-void dibujarArcos() {
-    //dibuja todos los arcos de la lista donde estan los arcos
+void dibujarArcos(ArrayList<Arco>& listaArcos, sf::RenderWindow& window) {
+    for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
+        listaArcos.getElement().draw(window);
+    }
 }
 
 void resetVisited() {
 }
 
-
 int main(){
     ArrayList<Nodo*> listaNodos(CANT_NODOS);
     ArrayList<Arco> listaArcos;
+
+    sf::RenderWindow window(sf::VideoMode({ X_VENTANA, Y_VENTANA }), "Grafos");
+    window.setFramerateLimit(60);
+
+    dibujarArcos(listaArcos, window);
+    dibujarNodos(listaNodos, window);
 }
+
+/* programa para probar sfml
+#include <SFML/Graphics.hpp>
+
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "Test");
+
+    sf::CircleShape circle(100.f);
+    circle.setFillColor(sf::Color::Green);
+    circle.setPosition({ 300.f, 200.f });
+
+    while (window.isOpen())
+    {
+        while (const auto event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+                window.close();
+        }
+
+        window.clear();
+        window.draw(circle);
+        window.display();
+    }
+}
+*/
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
