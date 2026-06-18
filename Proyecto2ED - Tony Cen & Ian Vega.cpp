@@ -6,6 +6,7 @@
 #include <ctime>
 #include "Nodo.h"
 #include "Arco.h"
+#include "Grafo.h"
 #include "Config.h"
 
 using std::runtime_error;
@@ -22,9 +23,23 @@ int main(){
     window.setFramerateLimit(60);
 
     sf::Font font;
-    if (!font.openFromFile("resources / arial.ttf")) {
-        throw runtime_error("No se pudo cargar font");
+
+    Grafo g;
+    g.generarGrafo();
+
+    while (window.isOpen())
+    {
+        while (const auto event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+                window.close();
+        }
+
+        window.clear();
+        g.draw(window, font);
+        window.display();
     }
+
 }
 
 /* programa para probar sfml

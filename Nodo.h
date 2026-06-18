@@ -104,7 +104,7 @@ public:
 			shape.setFillColor(sf::Color::White);
 		}
 		window.draw(shape);
-
+		
 		sf::Text texto(font);
 		string numID = std::to_string(numNodo);
 		texto.setString(numID);

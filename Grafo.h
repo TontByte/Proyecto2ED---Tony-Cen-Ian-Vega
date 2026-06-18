@@ -124,13 +124,13 @@ public:
 		}
 	}
 
-	void draw(sf::RenderWindow& window) {
+	void draw(sf::RenderWindow& window, sf::Font& font) {
 		for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
 			listaArcos.getElement()->draw(window);
 		}
 		
 		for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
-			listaNodos.getElement()->draw(window);
+			listaNodos.getElement()->draw(window, font);
 		}
 	}
 };
