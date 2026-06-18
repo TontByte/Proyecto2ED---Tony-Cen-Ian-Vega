@@ -3,6 +3,7 @@
 #pragma once
 #include <iostream>
 #include <stdexcept>
+#include <string>
 #include <SFML/Graphics.hpp>
 #include <limits>
 #include "ArrayList.h"
@@ -11,6 +12,7 @@
 using std::cout;
 using std::endl;
 using std::runtime_error;
+using std::string;
 
 class Nodo{
 private:
@@ -94,7 +96,7 @@ public:
 		return shape.getGlobalBounds().contains(mousePos);
 	}
 
-	void draw(sf::RenderWindow& window) {
+	void draw(sf::RenderWindow& window, sf::Font& font) {
 		if (visited) {
 			shape.setFillColor(sf::Color::Green);
 		}
@@ -102,6 +104,19 @@ public:
 			shape.setFillColor(sf::Color::White);
 		}
 		window.draw(shape);
+
+		sf::Text texto(font);
+		string numID = std::to_string(numNodo);
+		texto.setString(numID);
+		texto.setCharacterSize(8);
+		texto.setFillColor(sf::Color::Black);
+		sf::FloatRect bounds = texto.getLocalBounds();
+		texto.setOrigin(sf::Vector2f(bounds.size.x / 2.0f, bounds.size.y / 2.0f));
+		float centroX = shape.getPosition().x;
+		float centroY = shape.getPosition().y;
+		texto.setPosition(sf::Vector2f(static_cast<float>(centroX), static_cast<float>(centroY)));
+
+		window.draw(texto);
 	}
 
 };

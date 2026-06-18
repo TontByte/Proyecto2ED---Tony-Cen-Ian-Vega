@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cmath>
+#include <limits>
 #include <SFML/Graphics.hpp>
 #include "ArrayList.h"
 #include "Config.h"
@@ -39,7 +40,7 @@ public:
 
 	void generarGrafo() {
 		clear();
-		
+
 		//se crean los nodos
 		for (int i = 0; i < CANT_NODOS; i++) {
 			int x = rand() % (X_VENTANA - 40) + 20;
@@ -51,8 +52,14 @@ public:
 		//conectar con vecinos
 		for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
 			Nodo* nodoA = listaNodos.getElement();
+			int cantConexiones = nodoA->getVecinos().getSize();
+
+			if (cantConexiones >= MAX_CONEXIONES) {
+				continue;
+			}
+
 			MinHeap<Arco> candidatosVecinos(CANT_NODOS);
-			
+
 			for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
 				Nodo* nodoB = listaNodos.getElement();
 				if (nodoA == nodoB) {
@@ -74,10 +81,14 @@ public:
 				listaNodos.next();
 			}
 
-			int cantConexiones = 0;
 			while (!candidatosVecinos.isEmpty() && cantConexiones < MAX_CONEXIONES) {
 				Arco arcoGanador = candidatosVecinos.removeFirst();
 				Nodo* nodoB = arcoGanador.nodoB;
+
+				if (nodoB->getVecinos().getSize() >= MAX_CONEXIONES) {
+					continue;
+				}
+
 				bool duplicado = false;
 				for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
 					Arco* current = listaArcos.getElement();
@@ -95,15 +106,7 @@ public:
 					listaArcos.append(arcoNuevo);
 					cantConexiones++;
 				}
-				else {
-					cantConexiones++;
-				}
 			}
-			listaNodos.goToStart();
-			while (listaNodos.getElement() != nodoA) {
-				listaNodos.next();
-			}
-			listaNodos.previous();
 		}
 		listaNodos.goToStart();
 	}
@@ -122,12 +125,12 @@ public:
 	}
 
 	void draw(sf::RenderWindow& window) {
-		for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
-			listaNodos.getElement()->draw(window);
-		}
-
 		for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
 			listaArcos.getElement()->draw(window);
+		}
+		
+		for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
+			listaNodos.getElement()->draw(window);
 		}
 	}
 };
