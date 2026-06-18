@@ -2,31 +2,13 @@
 //
 
 #include <iostream>
+#include <stdexcept>
 #include <ctime>
 #include "Nodo.h"
 #include "Arco.h"
 #include "Config.h"
 
-void generarNodos(ArrayList<Nodo*>& listaNodos) {
-    
-    for (int i = 0; i < CANT_NODOS; i++) {
-        int x = rand() % X_VENTANA;
-        int y = rand() % Y_VENTANA;
-        Nodo* 
-    }
-}
-
-void dibujarNodos(ArrayList<Nodo*>& listaNodos, sf::RenderWindow& window) {
-    for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
-        listaNodos.getElement()->draw(window);
-    }
-}
-
-void dibujarArcos(ArrayList<Arco>& listaArcos, sf::RenderWindow& window) {
-    for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
-        listaArcos.getElement().draw(window);
-    }
-}
+using std::runtime_error;
 
 void resetVisited() {
 }
@@ -39,8 +21,10 @@ int main(){
     sf::RenderWindow window(sf::VideoMode({ X_VENTANA, Y_VENTANA }), "Grafos");
     window.setFramerateLimit(60);
 
-    dibujarArcos(listaArcos, window);
-    dibujarNodos(listaNodos, window);
+    sf::Font font;
+    if (!font.openFromFile("resources / arial.ttf")) {
+        throw runtime_error("No se pudo cargar font");
+    }
 }
 
 /* programa para probar sfml
