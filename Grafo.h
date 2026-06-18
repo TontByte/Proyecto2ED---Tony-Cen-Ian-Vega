@@ -99,6 +99,11 @@ public:
 					cantConexiones++;
 				}
 			}
+			listaNodos.goToStart();
+			while (listaNodos.getElement() != nodoA) {
+				listaNodos.next();
+			}
+			listaNodos.previous();
 		}
 		listaNodos.goToStart();
 	}
