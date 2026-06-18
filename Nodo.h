@@ -25,6 +25,13 @@ private:
 	ArrayList<Nodo*> vecinos;
 	sf::CircleShape shape;
 
+	float getRadio() {
+		float areaVentana = X_VENTANA * Y_VENTANA;
+		float radio = std::sqrt(areaVentana / static_cast<float>(CANT_NODOS)) / 6.0f;
+		radio = std::clamp(radio, 8.0f, 20.0f);
+		return radio;
+	}
+
 public:
 	Nodo(int numNodo, int xCoord, int yCoord) : vecinos(MAX_CONEXIONES) {
 		this->numNodo = numNodo;
@@ -34,11 +41,12 @@ public:
 		visited = false;
 		this->padre = nullptr;
 
-		shape.setRadius(15.0f);
-		shape.setOrigin(sf::Vector2f(15.0f, 15.0f)); 
+		float radio = getRadio();
+		shape.setRadius(radio);
+		shape.setOrigin(sf::Vector2f(radio, radio));
 		shape.setPosition(sf::Vector2f(static_cast<float>(xCoord), static_cast<float>(yCoord)));
 		shape.setFillColor(sf::Color::White);
-		shape.setOutlineThickness(2.0f);
+		shape.setOutlineThickness(1.5f);
 		shape.setOutlineColor(sf::Color::Black);
 	}
 

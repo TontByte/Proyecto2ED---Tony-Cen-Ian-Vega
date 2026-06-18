@@ -143,6 +143,9 @@
     <ClInclude Include="MinHeap.h" />
     <ClInclude Include="Nodo.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\ARIAL.TTF" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

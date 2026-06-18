@@ -23,6 +23,9 @@ int main(){
     window.setFramerateLimit(60);
 
     sf::Font font;
+    if (!font.openFromFile("fonts/ARIAL.ttf")) {
+        throw runtime_error("No se logra cargar font");
+    }
 
     Grafo g;
     g.generarGrafo();
