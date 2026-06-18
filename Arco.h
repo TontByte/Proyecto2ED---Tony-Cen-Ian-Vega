@@ -23,6 +23,18 @@ public:
 		partOfTree = false;
 	}
 
+	bool exists(Nodo* a, Nodo* b) {
+		if (nodoA == a && nodoB == b) {
+			return true;
+		}
+		else if (nodoA == b && nodoB == a) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	void draw(sf::RenderWindow& window) {
 		if (nodoA == nullptr || nodoB == nullptr) {
 			return;
@@ -42,6 +54,35 @@ public:
 		};
 
 		window.draw(line, 2, sf::PrimitiveType::Lines);
+	}
+
+	bool operator==(const Arco& other) const {
+		return peso == other.peso;
+	}
+
+	bool operator!=(const Arco& other) const {
+		return peso != other.peso;
+	}
+
+	bool operator<(const Arco& other) const {
+		return peso < other.peso;
+	}
+
+	bool operator<=(const Arco& other) const {
+		return peso <= other.peso;
+	}
+
+	bool operator>(const Arco& other) const {
+		return peso > other.peso;
+	}
+
+	bool operator>=(const Arco& other) const {
+		return peso >= other.peso;
+	}
+
+	friend std::ostream& operator<<(std::ostream& os, const Arco& a) {
+		os << "Arco(Peso: " << a.peso << ")";
+		return os;
 	}
 };
 

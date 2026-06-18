@@ -4,6 +4,7 @@
 #define MAX_CONEXIONES 3
 #define X_VENTANA 1000
 #define Y_VENTANA 800
+#define DEFAULT_MAX 1024
 
 /*
 Valores que deben ser configurables

@@ -8,8 +8,9 @@ Tiene como funcion permitir el acceso a las diferentes ventanillas de las areas
 #include <iostream>
 #include <stdexcept>
 #include "List.h"
+#include "Config.h"
 
-#define DEFAULT_MAX 1024
+
 
 using std::cout;
 using std::endl;

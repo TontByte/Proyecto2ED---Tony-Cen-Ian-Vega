@@ -2,11 +2,18 @@
 //
 
 #include <iostream>
+#include <ctime>
 #include "Nodo.h"
 #include "Arco.h"
 #include "Config.h"
 
-void generarNodos() {
+void generarNodos(ArrayList<Nodo*>& listaNodos) {
+    
+    for (int i = 0; i < CANT_NODOS; i++) {
+        int x = rand() % X_VENTANA;
+        int y = rand() % Y_VENTANA;
+        Nodo* 
+    }
 }
 
 void dibujarNodos(ArrayList<Nodo*>& listaNodos, sf::RenderWindow& window) {
@@ -25,6 +32,7 @@ void resetVisited() {
 }
 
 int main(){
+    srand(time(0));
     ArrayList<Nodo*> listaNodos(CANT_NODOS);
     ArrayList<Arco> listaArcos;
 
