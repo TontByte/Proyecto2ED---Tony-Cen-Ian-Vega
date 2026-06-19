@@ -135,7 +135,6 @@
     <ClCompile Include="Proyecto2ED - Tony Cen &amp; Ian Vega.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Algoritmos.h" />
     <ClInclude Include="Arco.h" />
     <ClInclude Include="ArrayList.h" />
     <ClInclude Include="Config.h" />
