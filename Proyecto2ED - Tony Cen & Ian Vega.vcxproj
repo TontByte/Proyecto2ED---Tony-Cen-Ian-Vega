@@ -142,6 +142,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="MinHeap.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="Pair.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\ARIAL.TTF" />

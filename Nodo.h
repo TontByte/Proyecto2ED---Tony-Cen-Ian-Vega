@@ -50,9 +50,9 @@ public:
 		shape.setOutlineColor(sf::Color::Black);
 	}
 
-	bool isClose(Nodo& otro) {
-		int dx = otro.getXCoord() - xCoord;
-		int dy = otro.getYCoord() - yCoord;
+	bool isClose(Nodo* otro) {
+		int dx = otro->getXCoord() - xCoord;
+		int dy = otro->getYCoord() - yCoord;
 		return (dx * dx + dy * dy) <= (MAX_DIST * MAX_DIST);
 	}
 

@@ -9,6 +9,7 @@
 #include "Nodo.h"
 #include "Arco.h"
 #include "MinHeap.h"
+#include "Pair.h"
 
 using std::cout;
 using std::endl;
@@ -66,7 +67,7 @@ public:
 					continue;
 				}
 
-				if (nodoA->isClose(*nodoB)) {
+				if (nodoA->isClose(nodoB)) {
 					float dx = static_cast<float>(nodoB->getXCoord() - nodoA->getXCoord());
 					float dy = static_cast<float>(nodoB->getYCoord() - nodoA->getYCoord());
 					float distancia = sqrt(dx * dx + dy * dy);
@@ -233,6 +234,53 @@ public:
 					cola.append(vecino);
 				}
 			}
+		}
+	}
+
+	void ejecutarDijkstra(Nodo* inicio, Nodo* destino) {
+		resetGrafo();
+		inicio->setDistancia(0.0f);
+		MinHeap<Pair<float, Nodo*>> pQueue;
+		Pair<float, Nodo*> p(inicio->getDistancia(), inicio);
+		pQueue.insert(p);
+
+		while (!pQueue.isEmpty()) {
+			Nodo* actual = pQueue.removeFirst().value;
+			if (actual == destino) {
+				break;
+			}
+			if (actual->getVisited()) {
+				continue;
+			}
+			actual->setVisited(true);
+
+			ArrayList<Nodo*>& vecinos = actual->getVecinos();
+			vecinos.goToStart();
+			while (!vecinos.atEnd()) {
+				Nodo* vecino = vecinos.getElement();
+				Arco* arcoConexion = obtenerArco(actual, vecino);
+				
+				if (!vecino->getVisited()) {
+					float newDistance = actual->getDistancia() + arcoConexion->peso;
+					if (newDistance < vecino->getDistancia()) {
+						vecino->setDistancia(newDistance);
+						vecino->setPadre(actual);
+						Pair<float, Nodo*> p(vecino->getDistancia(), vecino);
+						pQueue.insert(p);
+					}
+				}
+				vecinos.next();
+			}
+		}
+
+		Nodo* search = destino;
+		while (search != nullptr && search->getPadre() != nullptr) {
+			Nodo* padre = search->getPadre();
+			Arco* arco = obtenerArco(search, padre);
+			if (arco != nullptr) {
+				arco->partOfTree = true;
+			}
+			search = padre;
 		}
 	}
 };
