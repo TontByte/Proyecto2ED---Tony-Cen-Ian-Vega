@@ -104,15 +104,6 @@ public:
 		return shape.getGlobalBounds().contains(mousePos);
 	}
 
-	bool allNeighborVisited() {
-		for (vecinos.goToStart(); !vecinos.atEnd(); vecinos.next()) {
-			if (vecinos.getElement()->getVisited() == false) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	void draw(sf::RenderWindow& window, sf::Font& font) {
 		if (visited) {
 			shape.setFillColor(sf::Color::Green);

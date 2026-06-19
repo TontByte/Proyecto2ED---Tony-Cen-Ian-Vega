@@ -27,27 +27,6 @@ public:
 		clear();
 	}
 
-	ArrayList<Nodo*>& getListaNodos() {
-		return listaNodos;
-	}
-
-	ArrayList<Arco*>& getListaArcos() {
-		return listaArcos;
-	}
-
-	Arco* findArco(Nodo* a, Nodo* b) {
-		for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
-			Arco* arcoActual = listaArcos.getElement();
-			Nodo* actualA = arcoActual->nodoA;
-			Nodo* actualB = arcoActual->nodoB;
-
-			if ((actualA == a && actualB == b) || (actualA == b && actualB == a)) {
-				return arcoActual;
-			}
-		}
-		return nullptr;
-	}
-
 	void clear() {
 		for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
 			delete listaNodos.getElement();

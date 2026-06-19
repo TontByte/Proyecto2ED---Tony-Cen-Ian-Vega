@@ -11,27 +11,11 @@ using std::runtime_error;
 class Algoritmos{
 public:
 	//se usa static void para no tener que instancear algoritmos
-	static void ejecutarDFS(Nodo* inicio, Grafo& grafo) {
-		if (inicio == nullptr) {
-			return;
-		}
+	static void ejecutarDFS(Nodo* inicio) {
 
-		inicio->setVisited(true);
-		ArrayList<Nodo*>& vecinos = inicio->getVecinos();
-		for (int i = 0; i < vecinos.getSize(); i++) {
-			vecinos.goToPos(i);
-			Nodo* vecino = vecinos.getElement();
-			if (vecino != nullptr && !vecino->getVisited()) {
-				Arco* arcoConector = grafo.findArco(inicio, vecino);
-				if (arcoConector != nullptr) {
-					arcoConector->partOfTree = true;
-				}
-				ejecutarDFS(vecino, grafo);
-			}
-		}
 	}
 
-	static void ejecutarBFS(Nodo* inicio, Grafo& grafo) {
+	static void ejecutarBFS(Nodo* inicio) {
 
 	}
 
@@ -43,7 +27,7 @@ public:
 		//escribir algoritmo kruskal aqui
 	}
 
-	static void ejecutarDijkstra(Nodo* inicio, Nodo* destino, Grafo& grafo) {
+	static void ejecutarDijkstra(Nodo* inicio, Nodo* destino) {
 		//escribir algoritmo de dijkstra aqui
 	}
 };

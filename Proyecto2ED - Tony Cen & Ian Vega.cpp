@@ -8,7 +8,6 @@
 #include "Arco.h"
 #include "Grafo.h"
 #include "Config.h"
-#include "Algoritmos.h"
 
 using std::runtime_error;
 
@@ -30,8 +29,6 @@ int main(){
 
     Grafo g;
     g.generarGrafo();
-    Nodo* inicio = g.getListaNodos().getElement();
-    Algoritmos::ejecutarDFS(inicio, g);
 
     while (window.isOpen())
     {

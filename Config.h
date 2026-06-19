@@ -1,7 +1,7 @@
 #pragma once
-#define CANT_NODOS 35
+#define CANT_NODOS 50
 #define MAX_DIST 300
-#define MAX_CONEXIONES 3
+#define MAX_CONEXIONES 2
 #define X_VENTANA 1000
 #define Y_VENTANA 600
 #define DEFAULT_MAX 1024
