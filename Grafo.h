@@ -133,6 +133,7 @@ public:
 			listaNodos.getElement()->draw(window, font);
 		}
 	}
+
 	Nodo* obtenerNodoPorNumero(int numero) {
 		for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
 			Nodo* nodo = listaNodos.getElement();
@@ -162,6 +163,7 @@ public:
 
 		return arco->peso;
 	}
+
 	void ejecutarDFS(Nodo* inicio) {
 		resetGrafo();
 
@@ -170,33 +172,34 @@ public:
 		}
 
 		ArrayList<Nodo*> pila(CANT_NODOS);
-
-		inicio->setVisited(true);
 		pila.append(inicio);
 
 		while (pila.getSize() > 0) {
 			pila.goToPos(pila.getSize() - 1);
 			Nodo* actual = pila.remove();
 
-			ArrayList<Nodo*>& vecinos = actual->getVecinos();
+			if (!actual->getVisited()) {
+				actual->setVisited(true);
 
-			for (vecinos.goToStart(); !vecinos.atEnd(); vecinos.next()) {
-				Nodo* vecino = vecinos.getElement();
-
-				if (!vecino->getVisited()) {
-					vecino->setVisited(true);
-					vecino->setPadre(actual);
-
-					Arco* arco = obtenerArco(actual, vecino);
+				if (actual->getPadre() != nullptr) {
+					Arco* arco = obtenerArco(actual->getPadre(), actual);
 					if (arco != nullptr) {
 						arco->partOfTree = true;
 					}
+				}
 
-					pila.append(vecino);
+				ArrayList<Nodo*>& vecinos = actual->getVecinos();
+				for (vecinos.goToStart(); !vecinos.atEnd(); vecinos.next()) {
+					Nodo* vecino = vecinos.getElement();
+					if (!vecino->getVisited()) {
+						vecino->setPadre(actual);
+						pila.append(vecino);
+					}
 				}
 			}
 		}
 	}
+
 	void ejecutarBFS(Nodo* inicio) {
 		resetGrafo();
 
