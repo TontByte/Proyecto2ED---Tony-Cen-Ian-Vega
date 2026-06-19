@@ -133,5 +133,104 @@ public:
 			listaNodos.getElement()->draw(window, font);
 		}
 	}
+	Nodo* obtenerNodoPorNumero(int numero) {
+		for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
+			Nodo* nodo = listaNodos.getElement();
+			if (nodo->getNumNodo() == numero) {
+				return nodo;
+			}
+		}
+		return nullptr;
+	}
+
+	Arco* obtenerArco(Nodo* a, Nodo* b) {
+		for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
+			Arco* arco = listaArcos.getElement();
+			if (arco->exists(a, b)) {
+				return arco;
+			}
+		}
+		return nullptr;
+	}
+
+	float obtenerPeso(Nodo* a, Nodo* b) {
+		Arco* arco = obtenerArco(a, b);
+
+		if (arco == nullptr) {
+			return std::numeric_limits<float>::max();
+		}
+
+		return arco->peso;
+	}
+	void ejecutarDFS(Nodo* inicio) {
+		resetGrafo();
+
+		if (inicio == nullptr) {
+			return;
+		}
+
+		ArrayList<Nodo*> pila(CANT_NODOS);
+
+		inicio->setVisited(true);
+		pila.append(inicio);
+
+		while (pila.getSize() > 0) {
+			pila.goToPos(pila.getSize() - 1);
+			Nodo* actual = pila.remove();
+
+			ArrayList<Nodo*>& vecinos = actual->getVecinos();
+
+			for (vecinos.goToStart(); !vecinos.atEnd(); vecinos.next()) {
+				Nodo* vecino = vecinos.getElement();
+
+				if (!vecino->getVisited()) {
+					vecino->setVisited(true);
+					vecino->setPadre(actual);
+
+					Arco* arco = obtenerArco(actual, vecino);
+					if (arco != nullptr) {
+						arco->partOfTree = true;
+					}
+
+					pila.append(vecino);
+				}
+			}
+		}
+	}
+	void ejecutarBFS(Nodo* inicio) {
+		resetGrafo();
+
+		if (inicio == nullptr) {
+			return;
+		}
+
+		ArrayList<Nodo*> cola(CANT_NODOS);
+
+		inicio->setVisited(true);
+		cola.append(inicio);
+
+		while (cola.getSize() > 0) {
+			cola.goToStart();
+			Nodo* actual = cola.remove();
+
+			ArrayList<Nodo*>& vecinos = actual->getVecinos();
+
+			for (vecinos.goToStart(); !vecinos.atEnd(); vecinos.next()) {
+				Nodo* vecino = vecinos.getElement();
+
+				if (!vecino->getVisited()) {
+					vecino->setVisited(true);
+					vecino->setPadre(actual);
+
+					Arco* arco = obtenerArco(actual, vecino);
+					if (arco != nullptr) {
+						arco->partOfTree = true;
+					}
+
+					cola.append(vecino);
+				}
+			}
+		}
+	}
 };
 
