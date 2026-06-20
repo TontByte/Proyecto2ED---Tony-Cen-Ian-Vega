@@ -16,6 +16,60 @@ using std::endl;
 using std::runtime_error;
 using std::sqrt;
 
+class UnionFind {
+private:
+	int* parent;
+	int* rango;
+	int size;
+
+public:
+	UnionFind(int size) {
+		this->size = size;
+		parent = new int[size];
+		rango = new int[size];
+
+		for (int i = 0; i < size; i++) {
+			parent[i] = i;
+			rango[i] = 0;
+		}
+	}
+
+	~UnionFind() {
+		delete[] parent;
+		delete[] rango;
+	}
+
+	int find(int nodo) {
+		if (parent[nodo] != nodo) {
+			parent[nodo] = find(parent[nodo]);
+		}
+
+		return parent[nodo];
+	}
+
+	bool unir(int a, int b) {
+		int raizA = find(a);
+		int raizB = find(b);
+
+		if (raizA == raizB) {
+			return false;
+		}
+
+		if (rango[raizA] < rango[raizB]) {
+			parent[raizA] = raizB;
+		}
+		else if (rango[raizA] > rango[raizB]) {
+			parent[raizB] = raizA;
+		}
+		else {
+			parent[raizB] = raizA;
+			rango[raizA]++;
+		}
+
+		return true;
+	}
+};
+
 class Grafo{
 private:
 	ArrayList<Nodo*> listaNodos;
@@ -281,6 +335,92 @@ public:
 				arco->partOfTree = true;
 			}
 			search = padre;
+		}
+	}
+	void ejecutarPrim(Nodo* inicio) {
+		resetGrafo();
+
+		if (inicio == nullptr) {
+			return;
+		}
+
+		MinHeap<Arco> heap(CANT_NODOS * MAX_CONEXIONES);
+
+		inicio->setVisited(true);
+
+		ArrayList<Nodo*>& vecinosInicio = inicio->getVecinos();
+
+		for (vecinosInicio.goToStart(); !vecinosInicio.atEnd(); vecinosInicio.next()) {
+			Nodo* vecino = vecinosInicio.getElement();
+			float peso = obtenerPeso(inicio, vecino);
+
+			heap.insert(Arco(inicio, vecino, peso));
+		}
+
+		while (!heap.isEmpty()) {
+			Arco arcoMenor = heap.removeFirst();
+
+			Nodo* a = arcoMenor.nodoA;
+			Nodo* b = arcoMenor.nodoB;
+
+			Nodo* nuevo = nullptr;
+
+			if (a->getVisited() && !b->getVisited()) {
+				nuevo = b;
+			}
+			else if (b->getVisited() && !a->getVisited()) {
+				nuevo = a;
+			}
+			else {
+				continue;
+			}
+
+			nuevo->setVisited(true);
+
+			Arco* arcoOriginal = obtenerArco(a, b);
+			if (arcoOriginal != nullptr) {
+				arcoOriginal->partOfTree = true;
+			}
+
+			ArrayList<Nodo*>& vecinos = nuevo->getVecinos();
+
+			for (vecinos.goToStart(); !vecinos.atEnd(); vecinos.next()) {
+				Nodo* vecino = vecinos.getElement();
+
+				if (!vecino->getVisited()) {
+					float peso = obtenerPeso(nuevo, vecino);
+					heap.insert(Arco(nuevo, vecino, peso));
+				}
+			}
+		}
+	}
+	void ejecutarKruskal() {
+		resetGrafo();
+
+		MinHeap<Arco> heap(listaArcos.getSize());
+
+		for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
+			Arco* arco = listaArcos.getElement();
+			heap.insert(*arco);
+		}
+
+		UnionFind conjuntos(listaNodos.getSize());
+
+		while (!heap.isEmpty()) {
+			Arco arcoMenor = heap.removeFirst();
+
+			int idA = arcoMenor.nodoA->getNumNodo();
+			int idB = arcoMenor.nodoB->getNumNodo();
+
+			if (conjuntos.unir(idA, idB)) {
+				Arco* arcoOriginal = obtenerArco(arcoMenor.nodoA, arcoMenor.nodoB);
+
+				if (arcoOriginal != nullptr) {
+					arcoOriginal->partOfTree = true;
+					arcoOriginal->nodoA->setVisited(true);
+					arcoOriginal->nodoB->setVisited(true);
+				}
+			}
 		}
 	}
 };
