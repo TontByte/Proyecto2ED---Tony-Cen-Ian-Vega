@@ -312,6 +312,7 @@ public:
 		resetGrafo();
 		inicio->setDistancia(0.0f);
 		MinHeap<Pair<float, Nodo*>> pQueue;
+		ArrayList<Nodo*> visitedNodes(CANT_NODOS);
 		Pair<float, Nodo*> p(inicio->getDistancia(), inicio);
 		pQueue.insert(p);
 
@@ -324,6 +325,7 @@ public:
 				continue;
 			}
 			actual->setVisited(true);
+			visitedNodes.append(actual);
 
 			ArrayList<Nodo*>& vecinos = actual->getVecinos();
 			vecinos.goToStart();
@@ -344,8 +346,13 @@ public:
 			}
 		}
 
+		for (visitedNodes.goToStart(); !visitedNodes.atEnd(); visitedNodes.next()) {
+			visitedNodes.getElement()->setVisited(false);
+		}
+
 		Nodo* search = destino;
 		while (search != nullptr && search->getPadre() != nullptr) {
+			search->setVisited(true);
 			Nodo* padre = search->getPadre();
 			Arco* arco = obtenerArco(search, padre);
 			if (arco != nullptr) {
@@ -353,6 +360,7 @@ public:
 			}
 			search = padre;
 		}
+		search->setVisited(true);
 	}
 	void ejecutarPrim(Nodo* inicio) {
 		resetGrafo();
