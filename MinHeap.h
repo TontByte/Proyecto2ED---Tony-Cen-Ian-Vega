@@ -1,3 +1,8 @@
+/*
+Clase MinHeap elaborada en clase
+Utilizada para mantener ordenados por peso los arcos candidatos (generacion del grafo, Prim y Kruskal) y los pares (distancia, nodo) en Dijkstra
+Permite obtener siempre el elemento de menor valor
+*/
 #pragma once
 #include <stdexcept>
 #include <iostream>

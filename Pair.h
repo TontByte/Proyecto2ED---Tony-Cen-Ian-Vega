@@ -1,3 +1,7 @@
+/*
+Clase Pair elaborada en clase
+Utilizada en el proyecto para el algoritmo de Dijkstra: almacena la distancia actual (key) junto con el nodo correspondiente (value) dentro del MinHeap de prioridad
+*/
 #pragma once
 #include <iostream>
 

@@ -1,5 +1,9 @@
-//la clase nodo, utilizada para crear objetos nodo para el grafo
-//podriamos crear lo de la matriz para ver si se conectan con otros nodos
+/*
+Esta es la clase Nodo(escrita principalmente por Tony y revisada / mejorada por Ian)
+Representa cada nodo del grafo : su posicion en la ventana, sus vecinos y los atributos que necesitan los algoritmos
+Tambien se encarga de dibujarse a si mismo en pantalla usando SFML, incluyendo el resaltado de seleccion
+*/
+
 #pragma once
 #include <iostream>
 #include <stdexcept>

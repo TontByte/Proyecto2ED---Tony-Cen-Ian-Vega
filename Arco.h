@@ -1,3 +1,8 @@
+/*
+Esta es la clase Arco (escrita por Ian y Tony)
+Representa la arista que conecta dos nodos del grafo, junto con su peso 
+Tambien indica si forma parte del arbol/recorrido resultante de un algoritmo, para poder dibujarse de otro color
+*/
 #pragma once
 #include "Nodo.h"
 #include <SFML/Graphics.hpp>

@@ -1,3 +1,9 @@
+
+/*
+Esta es la clase Grafo (escrita principalmente por Tony y Ian)
+Es el control central de todo el grafo: genera los nodos y arcos, los dibuja en pantalla, y ejecuta sobre ellos
+los algoritmos de busqueda 
+*/
 #pragma once
 #include <iostream>
 #include <stdexcept>
@@ -15,7 +21,7 @@ using std::cout;
 using std::endl;
 using std::runtime_error;
 using std::sqrt;
-
+//Utilizada por Kruskal para detectar si dos nodos ya estan en el mismo arbol y asi evitar ciclos
 class UnionFind {
 private:
 	int* parent;
@@ -228,6 +234,7 @@ public:
 
 		return arco->peso;
 	}
+	//algoritmos de busqueda
 
 	void ejecutarDFS(Nodo* inicio) {
 		resetGrafo();
