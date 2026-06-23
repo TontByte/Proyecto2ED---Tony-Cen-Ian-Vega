@@ -24,6 +24,8 @@ private:
 	Nodo* padre; //para simplificar procesos en los algoritmos
 	ArrayList<Nodo*> vecinos;
 	sf::CircleShape shape;
+	bool esInicio; //true si se selecciona como nodo de inicio
+	bool esDestino;
 
 	float getRadio() {
 		float areaVentana = X_VENTANA * Y_VENTANA;
@@ -78,6 +80,22 @@ public:
 
 	void setVisited(bool value) {
 		visited = value;
+	}
+
+	bool getEsInicio() {
+		return esInicio;
+	}
+
+	void setEsInicio(bool value) {
+		esInicio = value;
+	}
+
+	bool getEsDestino() {
+		return esDestino;
+	}
+
+	void setEsDestino(bool value) {
+		esDestino = value;
 	}
 
 	float getDistancia() {

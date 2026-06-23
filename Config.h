@@ -5,6 +5,7 @@
 #define X_VENTANA 1000
 #define Y_VENTANA 600
 #define DEFAULT_MAX 1024
+#define HUD_HEIGHT 80
 
 /*
 Valores que deben ser configurables

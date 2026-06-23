@@ -199,6 +199,16 @@ public:
 		return nullptr;
 	}
 
+	Nodo* obtenerNodoEnPosicion(sf::Vector2f posicion) {
+		for (listaNodos.goToStart(); !listaNodos.atEnd(); listaNodos.next()) {
+			Nodo* nodo = listaNodos.getElement();
+			if (nodo->isClicked(posicion)) {
+				return nodo;
+			}
+		}
+		return nullptr;
+	}
+
 	Arco* obtenerArco(Nodo* a, Nodo* b) {
 		for (listaArcos.goToStart(); !listaArcos.atEnd(); listaArcos.next()) {
 			Arco* arco = listaArcos.getElement();
